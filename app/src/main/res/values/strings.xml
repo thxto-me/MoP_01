@@ -15,4 +15,7 @@
     <string name="exPhoneNum">+82-31-724-4562</string>
     <string name="_10">10</string>
     <string name="call">CALL</string>
+    <string name="isbn">ISBN:</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>

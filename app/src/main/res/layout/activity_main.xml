@@ -1,53 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+    android:id="@+id/myTableLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="6dp">
+    android:orientation="vertical"
+    android:padding="6dp"
+    android:stretchColumns="*">
 
     <TableRow>
 
-        <TextView
-            android:background="#FF33B5E5"
-            android:text="@string/name" />
+        <TextView android:text="@string/isbn" />
 
-        <TextView
-            android:layout_marginStart="5dp"
-            android:background="#FF33B5E5"
-            android:text="@string/age" />
-
-        <TextView
-            android:layout_marginStart="5dp"
-            android:background="#FF33B5E5"
-            android:text="@string/phone" />
+        <EditText
+            android:id="@+id/ediISBN"
+            android:layout_span="3"
+            android:autofillHints="" />
     </TableRow>
 
-    <View
-        android:layout_height="1dp"
-        android:background="#FF33B5E5" />
-
     <TableRow>
-
-        <TextView android:text="@string/choi" />
-
-        <TextView
-            android:layout_marginStart="5dp"
-            android:gravity="center"
-            android:text="@string/_10" />
-
-        <TextView
-            android:layout_marginStart="5dp"
-            android:gravity="center"
-            android:text="@string/exPhoneNum" />
-
         <Button
-            android:layout_marginStart="5dp"
-            android:id="@+id/btnCall"
-            android:text="@string/call" />
+            android:id="@+id/cancel_button"
+            android:layout_column="2"
+            android:text="@string/cancel" />
+        <Button
+            android:id="@+id/ok_button"
+            android:text="@string/ok" />
     </TableRow>
-
-    <View
-        android:layout_height="1dp"
-        android:background="#FF33B5E5" />
 
 </TableLayout>
