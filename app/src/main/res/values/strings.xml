@@ -4,4 +4,8 @@
     <string name="btn1">Button1</string>
     <string name="btn2">Button2</string>
     <string name="btn3">Button3</string>
+    <string name="open">Open...</string>
+    <string name="ctrl_o">Ctrl-O</string>
+    <string name="save_as">Save As...</string>
+    <string name="ctrl_shift_s">Ctrl-Shift-S</string>
 </resources>
