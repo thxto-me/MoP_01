@@ -8,4 +8,11 @@
     <string name="ctrl_o">Ctrl-O</string>
     <string name="save_as">Save As...</string>
     <string name="ctrl_shift_s">Ctrl-Shift-S</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="phone">Phone</string>
+    <string name="choi">Choi</string>
+    <string name="exPhoneNum">+82-31-724-4562</string>
+    <string name="_10">10</string>
+    <string name="call">CALL</string>
 </resources>
