@@ -5,26 +5,9 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btnStartService"
+        android:id="@+id/myBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Service" />
+        android:layout_height="match_parent"
+        android:text="Press Me" />
 
-    <Button
-        android:id="@+id/btnStopService"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Stop Service" />
-
-    <ImageButton
-        android:id="@+id/myImageBtn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground" />
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/gachon" />
 </LinearLayout>

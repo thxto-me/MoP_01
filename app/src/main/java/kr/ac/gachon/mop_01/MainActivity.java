@@ -9,24 +9,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
+    Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btnStart = findViewById(R.id.btnStartService);
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        button = findViewById(R.id.myBtn);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startService(new Intent(getApplicationContext(), MyService.class));
+                updateTime();
             }
         });
-        Button btnStop = findViewById(R.id.btnStopService);
-        btnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopService(new Intent(getApplicationContext(), MyService.class));
-            }
-        });
+    }
+
+    void updateTime() {
+        button.setText(new Date().toString());
     }
 }
