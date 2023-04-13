@@ -11,10 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoP_01"
         tools:targetApi="31">
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true"></service>
 
         <activity
             android:name=".MainActivity"
