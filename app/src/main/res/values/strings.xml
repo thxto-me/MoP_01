@@ -41,4 +41,7 @@
     <string name="menu_fragment">Menu Fragment</string>
     <string name="return_to_main">Return to Main</string>
     <string name="main_fragment">Main Fragment</string>
+    <string name="this_is_fragment_1">This is fragment #1</string>
+    <string name="this_is_fragment_2">This is fragment #2</string>
+    <string name="get_text_in_fragment_1">Get text in Fragment #1</string>
 </resources>

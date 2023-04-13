@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8AC6B"
+    android:background="#FFFE00"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView_fr2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/menu_fragment"
-        android:textSize="30sp" />
+        android:text="@string/this_is_fragment_2"
+        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/button_fr2_rtn"
+        android:id="@+id/button_fr2_gettxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/return_to_main" />
+        android:onClick="onClick"
+        android:text="@string/get_text_in_fragment_1" />
 </LinearLayout>
