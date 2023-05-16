@@ -1,68 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/winget28"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
+    android:background="#ff009999"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/shared_preferences_login"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/usertext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/username"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/userinput"
+        android:id="@+id/TextView01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/usertext"
-        android:layout_toEndOf="@id/usertext"
-        android:autofillHints="username"
-        android:inputType="textAutoComplete" />
+        android:text="@string/working" />
 
-    <TextView
-        android:id="@+id/userpass"
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/usertext"
-        android:layout_marginTop="50dp"
-        android:text="@string/password"
-        android:textSize="20sp" />
+        android:max="100" />
 
-    <EditText
-        android:id="@+id/passinput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/userpass"
-        android:layout_toEndOf="@id/userpass"
-        android:autofillHints="password"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/userpass"
-        android:layout_marginTop="60dp"
-        android:text="@string/submit" />
-
-    <Button
-        android:id="@+id/exit"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/userpass"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="60dp"
-        android:layout_toEndOf="@id/submit"
-        android:text="@string/exit" />
-
-</RelativeLayout>
+</LinearLayout>

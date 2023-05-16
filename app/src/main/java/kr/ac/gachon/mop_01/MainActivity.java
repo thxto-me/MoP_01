@@ -1,53 +1,67 @@
 package kr.ac.gachon.mop_01;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    EditText userinput, passinput;
-    Button submit, exit;
-    String username, password;
-    SharedPreferences sh_pref;
-    SharedPreferences.Editor toEdit;
+    TextView textview0;
+    ProgressBar bar;
+    ProgressHandler handler;
+    boolean isRunning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textview0 = (TextView) findViewById(R.id.TextView01);
+        bar = (ProgressBar) findViewById(R.id.progress);
+        handler = new ProgressHandler();
+    }
 
-        submit = findViewById(R.id.submit);
-        exit = findViewById(R.id.exit);
-        userinput = findViewById(R.id.userinput);
-        passinput = findViewById(R.id.passinput);
-        submit.setOnClickListener(view -> {
-            username = userinput.getText().toString();
-            password = passinput.getText().toString();
-            sharedPreferences();
-            Toast.makeText(getApplicationContext(), "Details are saved", Toast.LENGTH_LONG).show();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bar.setProgress(0);
+        Thread thread1 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    for (int i = 0; i < 20 && isRunning; i++) {
+                        Thread.sleep(1000);
+                        Message msg = handler.obtainMessage();
+                        handler.sendMessage(msg);
+                    }
+                } catch (Exception e) {
+                    Log.e("MainActivity", "Exception in processing Message", e);
+                }
+            }
         });
-        exit.setOnClickListener(view -> finish());
-        applySharedPreference();
+
+        isRunning = true;
+        thread1.start();
     }
 
-    private void sharedPreferences() {
-        sh_pref = getSharedPreferences("Login Credentials", MODE_PRIVATE);
-        toEdit = sh_pref.edit();
-        toEdit.putString("Username", username);
-        toEdit.putString("Password", password);
-        toEdit.commit();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isRunning = false;
     }
 
-    private void applySharedPreference() {
-        sh_pref = getSharedPreferences("Login Credentials", MODE_PRIVATE);
-        if (sh_pref != null && sh_pref.contains("Username")) {
-            String name = sh_pref.getString("Username", "noname");
-            userinput.setText(name);
+
+    public class ProgressHandler extends Handler {
+        public void handleMessage(Message msg) {
+            bar.incrementProgressBy(5);
+            if (bar.getProgress() == bar.getMax()) {
+                textview0.setText("Done");
+            } else {
+                textview0.setText("Working..." + bar.getProgress());
+            }
         }
     }
-
 }
+
