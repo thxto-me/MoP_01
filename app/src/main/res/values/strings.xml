@@ -46,4 +46,9 @@
     <string name="get_text_in_fragment_1">Get text in Fragment #1</string>
     <string name="animation">Animation</string>
     <string name="doggy_animation">Doggy Animation</string>
+    <string name="shared_preferences_login">Shared Preferences login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="exit">Exit</string>
 </resources>

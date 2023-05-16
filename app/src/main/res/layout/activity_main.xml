@@ -1,41 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/animation" />
+        android:text="@string/shared_preferences_login"
+        android:textSize="20sp" />
 
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/usertext"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button1"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/doggy_animation"
-            android:src="@drawable/dog_standing" />
-    </LinearLayout>
+        android:layout_marginTop="100dp"
+        android:text="@string/username"
+        android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/userinput"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_below="@id/linear"
-        android:importantForAutofill="no"
-        android:inputType="textAutoCorrect"
-        tools:ignore="LabelFor" />
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/usertext"
+        android:layout_toEndOf="@id/usertext"
+        android:autofillHints="username"
+        android:inputType="textAutoComplete" />
+
+    <TextView
+        android:id="@+id/userpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usertext"
+        android:layout_marginTop="50dp"
+        android:text="@string/password"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/passinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/userpass"
+        android:layout_toEndOf="@id/userpass"
+        android:autofillHints="password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userpass"
+        android:layout_marginTop="60dp"
+        android:text="@string/submit" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userpass"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="60dp"
+        android:layout_toEndOf="@id/submit"
+        android:text="@string/exit" />
 
 </RelativeLayout>
