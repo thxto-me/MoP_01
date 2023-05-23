@@ -56,4 +56,6 @@
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>
     <string name="restart">Restart</string>
+    <string name="my_position">My position:</string>
+    <string name="i_want_my_location">I want my Location</string>
 </resources>

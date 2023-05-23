@@ -1,127 +1,83 @@
 package kr.ac.gachon.mop_01;
 
-import android.media.MediaPlayer;
+import android.Manifest;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.IOException;
+import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    String url = "https://upload.wikimedia.org/wikipedia/commons/3/33/Klaviersonate_Nr._24_Fis-Dur_A_Therese_-_Adagio_cantabile_-_Allegro_ma_non_troppo.ogg";
-    MediaPlayer player;
-    int position;
+    TextView locationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Play
-        Button button1 = findViewById(R.id.btn1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        locationView = findViewById(R.id.locationView);
+
+        Button btn = findViewById(R.id.btn1);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playAudio();
+                startLocationService();
             }
         });
 
-        //Stop
-        Button button2 = findViewById(R.id.btn2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopAudio();
-            }
-        });
-
-        //Pause
-        Button button3 = findViewById(R.id.btn3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseAudio();
-            }
-        });
-
-        //Restart
-        Button button4 = findViewById(R.id.btn4);
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                restartAudio();
-            }
-        });
-
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
     }
 
-    private void restartAudio() {
-        showToast("음악 파일 재생 다시 시작됨");
-        if (player != null && !player.isPlaying()) {
-            try {
-                player.start();
-                player.seekTo(position);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
-    }
+    public void startLocationService() {
+        LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-    private void pauseAudio() {
-        showToast("음악 파일 재생 일시 중지됨");
-        if (player != null) {
-            try {
-                position = player.getCurrentPosition();
-                player.pause();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void stopAudio() {
-        showToast("음악 파일 재생 중지됨");
-        if (player != null) {
-            try {
-                player.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void playAudio() {
-        showToast("음악 파일 재생 호출됨");
-
-        killPlayer();
-
-        player = new MediaPlayer();
         try {
-            player.setDataSource(url);
-            player.prepare();
-            player.start();
-        } catch (IOException e) {
+            GPSListener gpsListener = new GPSListener();
+            long minTime = 10000;
+            float minDistance = 0;
+
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
+
+            Toast.makeText(getApplicationContext(), "chk my location", Toast.LENGTH_SHORT).show();
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
     }
 
-    private void killPlayer() {
-        if (player != null) {
-            try {
-                player.release();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    class GPSListener implements LocationListener {
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+
+            String msg = "위치: " + "\n위도: " + latitude + "\n경도: " + longitude;
+            locationView.setText(msg);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            LocationListener.super.onStatusChanged(provider, status, extras);
+        }
+
+        @Override
+        public void onProviderEnabled(@NonNull String provider) {
+            LocationListener.super.onProviderEnabled(provider);
+        }
+
+        @Override
+        public void onProviderDisabled(@NonNull String provider) {
+            LocationListener.super.onProviderDisabled(provider);
+        }
     }
 }
 
