@@ -52,4 +52,8 @@
     <string name="submit">Submit</string>
     <string name="exit">Exit</string>
     <string name="working">Working......</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
+    <string name="restart">Restart</string>
 </resources>
