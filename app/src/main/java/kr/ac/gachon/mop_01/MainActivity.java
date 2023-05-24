@@ -1,83 +1,59 @@
 package kr.ac.gachon.mop_01;
 
-import android.Manifest;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView locationView;
+    TextView gravityView;
+    SensorManager SMgr;
+    Sensor GSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        locationView = findViewById(R.id.locationView);
+        gravityView = findViewById(R.id.gravityView);
+        SMgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        GSensor = SMgr.getDefaultSensor(Sensor.TYPE_GRAVITY);
+        SMgr.registerListener(SL, GSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        Button btn = findViewById(R.id.btn1);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startLocationService();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SMgr.registerListener(SL, GSensor, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SMgr.unregisterListener(SL);
+    }
+
+    public SensorEventListener SL = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
+                gravityView.setText(Float.toString(event.values[0]));
+                Log.i("TAG", Float.toString(event.values[0]));
             }
-        });
-
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-    }
-
-
-    public void startLocationService() {
-        LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        try {
-            GPSListener gpsListener = new GPSListener();
-            long minTime = 10000;
-            float minDistance = 0;
-
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, gpsListener);
-
-            Toast.makeText(getApplicationContext(), "chk my location", Toast.LENGTH_SHORT).show();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    class GPSListener implements LocationListener {
-        @Override
-        public void onLocationChanged(@NonNull Location location) {
-            Double latitude = location.getLatitude();
-            Double longitude = location.getLongitude();
-
-            String msg = "위치: " + "\n위도: " + latitude + "\n경도: " + longitude;
-            locationView.setText(msg);
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            LocationListener.super.onStatusChanged(provider, status, extras);
-        }
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-        @Override
-        public void onProviderEnabled(@NonNull String provider) {
-            LocationListener.super.onProviderEnabled(provider);
         }
-
-        @Override
-        public void onProviderDisabled(@NonNull String provider) {
-            LocationListener.super.onProviderDisabled(provider);
-        }
-    }
+    };
 }
 
