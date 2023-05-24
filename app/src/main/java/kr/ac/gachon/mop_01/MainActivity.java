@@ -2,58 +2,30 @@ package kr.ac.gachon.mop_01;
 
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
-    TextView gravityView;
-    SensorManager SMgr;
-    Sensor GSensor;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gravityView = findViewById(R.id.gravityView);
-        SMgr = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        GSensor = SMgr.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        SMgr.registerListener(SL, GSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        SensorManager SM = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> arSensor = SM.getSensorList(Sensor.TYPE_ALL);
 
-    }
+        StringBuilder rst = new StringBuilder(" 갯수 : " + arSensor.size() + "\n\n");
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SMgr.registerListener(SL, GSensor, SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SMgr.unregisterListener(SL);
-    }
-
-    public SensorEventListener SL = new SensorEventListener() {
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
-                gravityView.setText(Float.toString(event.values[0]));
-                Log.i("TAG", Float.toString(event.values[0]));
-            }
+        for (Sensor s : arSensor) {
+            rst.append(" 이름 = ").append(s.getName()).append(",\n 형식 = ").append(s.getType()).append(",\n 제조사 = ").append(s.getVendor()).append(",\n 전원 = ").append(s.getPower()).append(",\n 해상도 = ").append(s.getResolution()).append(",\n 범위 = ").append(s.getMaximumRange()).append("\n\n");
         }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-        }
-    };
+        TextView txtResult = findViewById(R.id.result);
+        txtResult.setText(rst.toString());
+    }
 }
-
